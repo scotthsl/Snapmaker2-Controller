@@ -54,6 +54,11 @@ void GcodeSuite::M206() {
           l_home_offset[i] = home_offset[i];
           break;
 
+        case MACHINE_SIZE_A500:
+          a500_home_offset[i] = home_offset[i];
+          break;
+
+
         default:
           break;
       }

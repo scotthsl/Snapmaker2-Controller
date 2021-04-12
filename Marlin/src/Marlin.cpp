@@ -249,6 +249,9 @@ millis_t max_inactive_time, // = 0
   float s_home_offset[XN] = S_HOME_OFFSET_DEFAULT;
   float m_home_offset[XN] = M_HOME_OFFSET_DEFAULT;
   float l_home_offset[XN] = L_HOME_OFFSET_DEFAULT;
+  float a500_home_offset[XN] = A500_HOME_OFFSET_DEFAULT;
+
+
 #endif //ENABLED(SW_MACHINE_SIZE)
 
 uint32_t GRID_MAX_POINTS_X;
@@ -289,6 +292,11 @@ void reset_homeoffset() {
       case MACHINE_SIZE_A350:
         home_offset[i] = l_home_offset[i];
         break;
+
+      case MACHINE_SIZE_A500:
+        home_offset[i] = a500_home_offset[i];
+        break;
+      
       default:
         break;
     }

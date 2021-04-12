@@ -84,6 +84,7 @@ static void LinearCallbackEndstopX1(CanStdDataFrame_t &cmd) {
   {
   case MACHINE_SIZE_A250:
   case MACHINE_SIZE_A350:
+  case MACHINE_SIZE_A500:
     linear_p->SetEndstopBit(X_MIN, cmd.data[0]);
     break;
 
@@ -334,12 +335,38 @@ MachineSize Linear::UpdateMachineSize() {
     return (machine_size_ = MACHINE_SIZE_UNKNOWN);
   }
 
-  if (CheckModuleType() != E_SUCCESS) {
-    X_MAX_POS = 0;
-    Y_MAX_POS = 0;
-    Z_MAX_POS = 0;
-    systemservice.ThrowException(EHOST_MC, ETYPE_NO_HOST);
-    return (machine_size_ = MACHINE_SIZE_UNKNOWN);
+  // if (CheckModuleType() != E_SUCCESS) {
+  //   X_MAX_POS = 0;
+  //   Y_MAX_POS = 0;
+  //   Z_MAX_POS = 0;
+  //   systemservice.ThrowException(EHOST_MC, ETYPE_NO_HOST);
+  //   return (machine_size_ = MACHINE_SIZE_UNKNOWN);
+  // }
+
+if (length_[LINEAR_AXIS_X1] > 350) {
+    LOG_I("Model: A500\n");
+    X_MAX_POS = 410;
+    Y_MAX_POS = 550;
+    Z_MAX_POS = 520;
+
+    X_HOME_DIR = -1;
+    X_DIR = false;
+    Y_HOME_DIR = 1;
+    Y_DIR = true;
+    Z_HOME_DIR = 1;
+    Z_DIR = true;
+
+    LOOP_XN(i) home_offset[i] = a500_home_offset[i];
+
+    X_DEF_SIZE = 320;
+    Y_DEF_SIZE = 340;
+    Z_DEF_SIZE = 330; // unused & spec is lager than actual size.  334 - 6 = 328?
+
+    MAGNET_X_SPAN = 274;
+    MAGNET_Y_SPAN = 304;
+
+    machine_size_ = MACHINE_SIZE_A500;
+    goto out;
   }
 
   if (length_[LINEAR_AXIS_X1] < 200) {

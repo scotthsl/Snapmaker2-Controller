@@ -1047,10 +1047,12 @@
   extern float s_home_offset[XN];
   extern float m_home_offset[XN];
   extern float l_home_offset[XN];
+  extern float a500_home_offset[XN];
 
 #define S_HOME_OFFSET_DEFAULT {-7, -5, 0, 0}
 #define M_HOME_OFFSET_DEFAULT {-15.5, -7, 0, 0}
 #define L_HOME_OFFSET_DEFAULT {-19, -10, 0, 0}
+#define A500_HOME_OFFSET_DEFAULT {0, 0, 0, 0}
 #endif //DISABLE(SW_MACHINE_SIZE)
 
 // The size of the print bed
@@ -1210,7 +1212,7 @@
   #define  GRID_MAX_NUM 11
   #define GRID_MAX_POINTS GRID_MAX_NUM * GRID_MAX_NUM
 //  #define PROBE_MARGIN 30
-#define DEFAUT_LEVELING_HEIGHT  9 // uint: mm
+#define DEFAUT_LEVELING_HEIGHT  15 // uint: mm
 
   // Set the boundaries for probing (where the probe can reach).
   #define LEFT_PROBE_BED_POSITION 30
